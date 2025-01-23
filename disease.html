@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Disease - Kidney Health Awareness</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        /* Including all previous animations and base styles */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        header {
+            background: linear-gradient(-45deg, #2c3e50, #3498db, #2980b9, #34495e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/400') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        nav:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            margin-bottom: 100px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        .feature-box {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: calc(0.2s * var(--i, 0));
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .feature-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-box h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .feature-box h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .feature-box:hover h2::after {
+            width: 100px;
+        }
+
+        .feature-box img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 15px;
+            margin: 1.5rem auto;
+            display: block;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-box:hover img {
+            transform: scale(1.02);
+        }
+
+        .disease-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .disease-list li {
+            padding: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--i));
+            transition: all 0.3s ease;
+        }
+
+        .disease-list li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .disease-list li:hover::before {
+            transform: scale(1.5);
+        }
+
+        .disease-list li:hover {
+            transform: translateX(10px);
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background: linear-gradient(-45deg, #2c3e50, #3498db, #2980b9, #34495e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        footer:hover {
+            transform: translateY(-5px);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            transform: translateY(100px);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 3rem 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            nav a {
+                padding: 0.6rem 1rem;
+                margin: 0 0.3rem;
+            }
+
+            .feature-box {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kidney Health Awareness</h1>
+        <p>Understand the risks to protect your kidneys for life.</p>
+    </header>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="how-they-work.html">Kidneys & How They Work</a>
+        <a href="functions.html">Kidney Functions</a>
+        <a href="disease.html">Kidney Disease</a>
+        <a href="care.html">Take Care of Your Kidneys</a>
+        <a href="games.html">Games</a>
+    </nav>
+    
+    <div class="content">
+        <div class="feature-box" style="--i:1">
+            <h2>What Is Kidney Disease?</h2>
+            <img src="desease.png" alt="Kidney disease information">
+            <p>Kidney disease occurs when the kidneys lose their ability to function properly. This can happen gradually over time (chronic kidney disease) or suddenly (acute kidney failure). Without treatment, kidney disease can progress to end-stage renal disease, requiring dialysis or a kidney transplant.</p>
+        </div>
+    
+        <div class="feature-box" style="--i:2">
+            <h2>Types of Kidney Disease</h2>
+            <ul class="disease-list">
+                <li style="--i:1">Chronic Kidney Disease (CKD): Gradual loss of kidney function over time.</li>
+                <li style="--i:2">Acute Kidney Failure: Sudden loss of kidney function, often reversible with treatment.</li>
+                <li style="--i:3">Kidney Stones: Hard deposits of minerals and salts that form in the kidneys.</li>
+                <li style="--i:4">Polycystic Kidney Disease (PKD): A genetic disorder causing cysts to form in the kidneys.</li>
+                <li style="--i:5">Urinary Tract Infections (UTIs): Infections that can spread to the kidneys if untreated.</li>
+            </ul>
+        </div>
+        
+        <div class="feature-box" style="--i:3">
+            <h2>Kidney Disease Causes</h2>
+            <ul class="disease-list">
+                <li style="--i:1">Diabetes: High blood sugar levels can damage the kidneys over time.</li>
+                <li style="--i:2">High Blood Pressure: Puts extra strain on the kidneys.</li>
+                <li style="--i:3">Glomerulonephritis: Inflammation of the kidney's filtering units.</li>
+                <li style="--i:4">Infections or Autoimmune Diseases: Such as lupus or recurrent UTIs.</li>
+                <li style="--i:5">Lifestyle Factors: Poor diet, dehydration, smoking, and excessive use of painkillers.</li>
+            </ul>
+        </div>
+    
+        <div class="feature-box" style="--i:4">
+            <h2>Kidney Disease Symptoms & How to Diagnose Kidney Disease</h2>
+            <h3 style="color: var(--secondary-color); margin: 1rem 0;">Symptoms:</h3>
+            <ul class="disease-list">
+                <li style="--i:1">Fatigue and weakness</li>
+                <li style="--i:2">Swelling in the legs, ankles, or feet</li>
+                <li style="--i:3">Changes in urine (color, frequency, or volume)</li>
+                <li style="--i:4">Persistent itching or dry skin</li>
+                <li style="--i:5">Shortness of breath</li>
+                <li style="--i:6">High blood pressure</li>
+            </ul>
+            <h3 style="color: var(--secondary-color); margin: 1rem 0;">Diagnosis:</h3>
+            <ul class="disease-list">
+                <li style="--i:7">Blood Tests: Measure creatinine and blood urea nitrogen (BUN) levels</li>
+                <li style="--i:8">Urine Tests: Detect protein or blood in the urine</li>
+                <li style="--i:9">Imaging Tests: Ultrasound or CT scans to view kidney structure</li>
+                <li style="--i:10">Kidney Biopsy: Sample of kidney tissue examined for damage or disease</li>
+            </ul>
+        </div>
+
+        <div class="feature-box" style="--i:5">
+            <h2>Kidney Disease Treatment</h2>
+            <ul class="disease-list">
+                <li style="--i:1">Lifestyle Changes: Healthy diet, regular exercise, and quitting smoking</li>
+                <li style="--i:2">Medications: Control blood pressure, blood sugar, and cholesterol levels</li>
+                <li style="--i:3">Dialysis: A treatment that removes waste and excess fluids from the blood when the kidneys are no longer functioning</li>
+                <li style="--i:4">Kidney Transplant: Replacing the damaged kidney with a healthy one from a donor</li>
+                <li style="--i:5">Monitoring and Management: Regular check-ups to prevent further complications</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="scroll-to-top">↑</div>
+
+
+    <footer>
+        <p>© 2025 Kidney Health Awareness. Naia Lara</p>
+    </footer>
+
+    <script>
+        // Scroll to top functionality
+        const scrollToTop = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        });
+
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

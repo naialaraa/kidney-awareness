@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidneys & How They Work - Kidney Health Awareness</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        header {
+            background: linear-gradient(-45deg, #2c3e50, #3498db, #2980b9, #34495e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/400') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        nav:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            margin-bottom: 100px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        .feature-box {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: calc(0.2s * var(--i, 0));
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .feature-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-box h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .feature-box h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .feature-box:hover h2::after {
+            width: 100px;
+        }
+
+        .feature-box p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .feature-box ul li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--i, 0));
+        }
+
+        .feature-box ul li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 15px;
+            margin: 1.5rem auto;
+            display: block;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-box:hover img {
+            transform: scale(1.02);
+        }
+
+        footer {
+            background: linear-gradient(-45deg, #2c3e50, #3498db, #2980b9, #34495e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        footer:hover {
+            transform: translateY(-5px);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            transform: translateY(100px);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 3rem 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            nav a {
+                padding: 0.6rem 1rem;
+                margin: 0 0.3rem;
+            }
+
+            .feature-box {
+                padding: 1.5rem;
+            }
+
+            .feature-box img {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kidney Health Awareness</h1>
+        <p>Discover the inner workings of your body's silent heroes!</p>
+    </header>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="how-they-work.html">Kidneys & How They Work</a>
+        <a href="functions.html">Kidney Functions</a>
+        <a href="disease.html">Kidney Disease</a>
+        <a href="care.html">Take Care of Your Kidneys</a>
+        <a href="games.html">Games</a>
+    </nav>
+    
+    <div class="content">
+        <div class="feature-box" style="--i:1">
+            <h2>Kidneys & How They Work</h2>
+            <img src= "anatomy.png" alt="Kidney anatomy">
+            <p>The kidneys are a pair of bean-shaped organs, each about the size of a fist, located on either side of the spine just below the rib cage. These remarkable organs play a critical role in maintaining your body's internal environment.</p>
+            <h3 style="color: var(--secondary-color); margin: 1rem 0;">Structure and Function:</h3>
+            <p>Each kidney contains around one million tiny filtering units called nephrons. Nephrons are the functional units of the kidney and consist of two main parts:</p>
+            <ul class="work-list">
+                <li style="--i:1">Glomerulus: A network of tiny blood vessels (capillaries) that filters out waste, toxins, and excess substances from the blood.</li>
+                <li style="--i:2">Tubules: Small tubes that reclaim needed substances like water, glucose, and electrolytes while sending the waste products to be excreted as urine.</li>
+            </ul>
+            <h3 style="color: var(--secondary-color); margin: 1rem 0;">Key Functions of the Kidneys</h3>
+            <ul class="work-list">
+                <li style="--i:3">Blood Filtration: The kidneys filter approximately 50 gallons of blood daily, removing waste products like urea and creatinine. This waste is combined with water to form urine, which is excreted from the body.</li>
+                <li style="--i:4">Fluid and Electrolyte Balance: The kidneys help maintain the right balance of fluids and electrolytes, such as sodium, potassium, and calcium, which are crucial for nerve function, muscle contraction, and overall cellular health.</li>
+                <li style="--i:5">Blood Pressure Regulation: By producing the enzyme renin, the kidneys play a significant role in regulating blood pressure. Renin activates a hormonal system that adjusts blood pressure and fluid balance to ensure proper circulation.</li>
+                <li style="--i:6">Red Blood Cell Production: The kidneys release erythropoietin, a hormone that stimulates the bone marrow to produce red blood cells, ensuring your body gets the oxygen it needs.</li>
+                <li style="--i:7">Bone Health: The kidneys activate vitamin D, which is essential for calcium absorption and strong, healthy bones.</li>
+            </ul>
+            <h3 style="color: var(--secondary-color); margin: 1rem 0;">How the Kidneys Maintain Balance</h3>
+            <p>The kidneys are constantly monitoring and adjusting the body’s internal environment. When you drink too much water, they excrete more urine to prevent fluid overload. When you are dehydrated, they conserve water to maintain hydration. Similarly, they adjust the levels of electrolytes and pH in your blood, keeping your body in a state of equilibrium.</p>
+        </div>
+
+        <div class="feature-box" style="--i:2">
+            <h2>Why Are the Kidneys Important?</h2>
+            <p>The kidneys perform several essential functions that keep the body in balance. They remove waste products and excess fluids, regulate blood pressure, control the production of red blood cells, and maintain the balance of electrolytes such as sodium and potassium. Without healthy kidneys, the body cannot effectively filter toxins, which can lead to serious health issues.</p>
+        </div>
+        
+        <div class="feature-box" style="--i:3">
+            <h2>How Do My Kidneys Work?</h2>
+            <p>The kidneys filter approximately 50 gallons of blood daily to remove waste and extra fluid. Each kidney contains tiny filtering units called nephrons. Blood flows into these nephrons, where waste is filtered out and turned into urine. The urine then passes through the ureters to the bladder, where it is stored before being expelled from the body.</p>
+        </div>
+    </div>
+
+    <div class="scroll-to-top">↑</div>
+
+    <footer>
+        <p>© 2025 Kidney Health Awareness. Naia Lara</p>
+    </footer>
+
+    <script>
+        // Scroll to top functionality
+        const scrollToTop = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        });
+
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
