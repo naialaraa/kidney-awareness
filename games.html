@@ -867,34 +867,6 @@
 
         const memoryRoot = ReactDOM.createRoot(memoryRootElement);
         memoryRoot.render(React.createElement(KidneyImageMemoryGame));
-
-        // Add this to the existing <script> section in the HTML
-
-document.querySelector('footer').innerHTML += `
-    <div id="easter-egg" style="
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        width: 30px;
-        height: 30px;
-        background: transparent;
-        cursor: pointer;
-        opacity: 0.2;
-        transition: all 0.3s ease;
-    " onclick="window.open('https://www.kidney.org/', '_blank')">
-        💌
-    </div>
-`;
-
-document.getElementById('easter-egg').addEventListener('mouseover', function() {
-    this.style.transform = 'scale(1.5)';
-    this.style.opacity = '1';
-});
-
-document.getElementById('easter-egg').addEventListener('mouseout', function() {
-    this.style.transform = 'scale(1)';
-    this.style.opacity = '0.2';
-});
     </script>
 </body>
 </html>
