@@ -419,7 +419,6 @@
     </footer>
 
     <script>
-        // Snake Game Implementation with React
         function Game() {
             const [snake, setSnake] = React.useState([[0, 0]]);
             const [food, setFood] = React.useState([10, 10]);
@@ -431,7 +430,6 @@
             const GRID_SIZE = 20;
             const CELL_SIZE = 20;
 
-            // Game mechanics
             React.useEffect(() => {
                 const moveSnake = () => {
                     if (gameOver || isPaused) return;
@@ -446,13 +444,11 @@
                         case 'RIGHT': head[0]++; break;
                     }
 
-                    // Check self-collision
                     if (newSnake.some(segment => segment[0] === head[0] && segment[1] === head[1])) {
                         setGameOver(true);
                         return;
                     }
 
-                    // Check wall collisions
                     if (head[0] < 0 || head[0] >= GRID_SIZE || 
                         head[1] < 0 || head[1] >= GRID_SIZE) {
                         setGameOver(true);
@@ -461,7 +457,6 @@
 
                     newSnake.unshift(head);
                     
-                    // Check if food eaten
                     if (head[0] === food[0] && head[1] === food[1]) {
                         setScore(s => s + 1);
                         setFood([
@@ -479,7 +474,6 @@
                 return () => clearInterval(timer);
             }, [snake, direction, food, gameOver, isPaused]);
 
-            // Handle keyboard
             React.useEffect(() => {
                 const handleKeyPress = (e) => {
                     switch(e.key) {
@@ -514,17 +508,33 @@
                 setIsPaused(true);
             };
 
+            const changeDirection = (newDirection) => {
+                if (
+                    (newDirection === 'UP' && direction !== 'DOWN') ||
+                    (newDirection === 'DOWN' && direction !== 'UP') ||
+                    (newDirection === 'LEFT' && direction !== 'RIGHT') ||
+                    (newDirection === 'RIGHT' && direction !== 'LEFT')
+                ) {
+                    setDirection(newDirection);
+                }
+            };
+
             return React.createElement('div', null,
-                React.createElement('div', { className: 'score' }, `Score: ${score}`),
+                React.createElement('div', { className: 'score', style: { 
+                    textAlign: 'center', 
+                    fontSize: '1.5rem', 
+                    fontWeight: 'bold', 
+                    marginBottom: '10px' 
+                }}, `Score: ${score}`),
                 React.createElement('div', {
                     className: 'game-board',
                     style: {
                         width: GRID_SIZE * CELL_SIZE,
                         height: GRID_SIZE * CELL_SIZE,
-                        position: 'relative'
+                        position: 'relative',
+                        margin: '0 auto'
                     }
                 },
-                    // Draw snake
                     ...snake.map((part, i) =>
                         React.createElement('div', {
                             key: i,
@@ -532,13 +542,12 @@
                                 position: 'absolute',
                                 width: CELL_SIZE - 2,
                                 height: CELL_SIZE - 2,
-                                backgroundColor: i === 0 ? '#B82132' : '#D2665A', // Different color for head
+                                backgroundColor: i === 0 ? '#B82132' : '#D2665A',
                                 left: part[0] * CELL_SIZE,
                                 top: part[1] * CELL_SIZE
                             }
                         })
                     ),
-                    // Draw food
                     React.createElement('div', {
                         style: {
                             position: 'absolute',
@@ -566,15 +575,115 @@
                         }
                     }, 'Game Over!')
                 ),
-                React.createElement('div', { className: 'game-controls' },
-                    React.createElement('button', {
-                        className: 'game-button',
-                        onClick: () => setIsPaused(!isPaused)
-                    }, isPaused ? 'Start' : 'Pause'),
-                    React.createElement('button', {
-                        className: 'game-button',
-                        onClick: resetGame
-                    }, 'New Game')
+                React.createElement('div', { 
+                    className: 'game-controls', 
+                    style: { 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        marginTop: '20px' 
+                    }},
+                    React.createElement('div', { 
+                        className: 'touch-controls', 
+                        style: { 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            alignItems: 'center',
+                            gap: '10px', 
+                            maxWidth: '300px', 
+                            margin: '0 auto 20px' 
+                        }},
+                        React.createElement('button', {
+                            onClick: () => changeDirection('UP'),
+                            style: {
+                                width: '50px',
+                                height: '50px',
+                                fontSize: '2rem',
+                                backgroundColor: '#4CAF50',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '15px',
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                cursor: 'pointer',
+                                transition: 'transform 0.1s, background-color 0.2s'
+                            }
+                        }, '↑'),
+                        React.createElement('div', { style: { display: 'flex', gap: '10px' }},
+                            React.createElement('button', {
+                                onClick: () => changeDirection('LEFT'),
+                                style: {
+                                    width: '50px',
+                                    height: '50px',
+                                    fontSize: '2rem',
+                                    backgroundColor: '#2196F3',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '15px',
+                                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                    cursor: 'pointer',
+                                    transition: 'transform 0.1s, background-color 0.2s'
+                                }
+                            }, '←'),
+                            React.createElement('button', {
+                                onClick: () => changeDirection('RIGHT'),
+                                style: {
+                                    width: '50px',
+                                    height: '50px',
+                                    fontSize: '2rem',
+                                    backgroundColor: '#2196F3',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '15px',
+                                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                    cursor: 'pointer',
+                                    transition: 'transform 0.1s, background-color 0.2s'
+                                }
+                            }, '→')
+                        ),
+                        React.createElement('button', {
+                            onClick: () => changeDirection('DOWN'),
+                            style: {
+                                width: '50px',
+                                height: '50px',
+                                fontSize: '2rem',
+                                backgroundColor: '#4CAF50',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '15px',
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                cursor: 'pointer',
+                                transition: 'transform 0.1s, background-color 0.2s'
+                            }
+                        }, '↓')
+                    ),
+                    React.createElement('div', { style: { display: 'flex', gap: '10px' }},
+                        React.createElement('button', {
+                            onClick: () => setIsPaused(!isPaused),
+                            style: {
+                                padding: '10px 20px',
+                                fontSize: '1rem',
+                                backgroundColor: '#FF9800',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.2s'
+                            }
+                        }, isPaused ? 'Start' : 'Pause'),
+                        React.createElement('button', {
+                            onClick: resetGame,
+                            style: {
+                                padding: '10px 20px',
+                                fontSize: '1rem',
+                                backgroundColor: '#F44336',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.2s'
+                            }
+                        }, 'New Game')
+                    )
                 )
             );
         }
@@ -758,6 +867,34 @@
 
         const memoryRoot = ReactDOM.createRoot(memoryRootElement);
         memoryRoot.render(React.createElement(KidneyImageMemoryGame));
+
+        // Add this to the existing <script> section in the HTML
+
+document.querySelector('footer').innerHTML += `
+    <div id="easter-egg" style="
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        cursor: pointer;
+        opacity: 0.2;
+        transition: all 0.3s ease;
+    " onclick="window.open('https://www.kidney.org/', '_blank')">
+        💌
+    </div>
+`;
+
+document.getElementById('easter-egg').addEventListener('mouseover', function() {
+    this.style.transform = 'scale(1.5)';
+    this.style.opacity = '1';
+});
+
+document.getElementById('easter-egg').addEventListener('mouseout', function() {
+    this.style.transform = 'scale(1)';
+    this.style.opacity = '0.2';
+});
     </script>
 </body>
 </html>
